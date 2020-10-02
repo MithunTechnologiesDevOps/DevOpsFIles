@@ -3,7 +3,7 @@ node
  
  properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * *')])])
  
- echo "Build number is:  ${env.BUILD_NUMBER}"
+// echo "Build number is:  ${env.BUILD_NUMBER}"
  
  def mavenHome = tool name: "maven3.6.3"
  
@@ -17,6 +17,7 @@ node
   sh "${mavenHome}/bin/mvn clean package"
  }
  
+ /*
  stage('ExecuteSonarQubeReport')
   {
   sh "${mavenHome}/bin/mvn sonar:sonar"
@@ -35,7 +36,7 @@ node
   }
   
   }
-  
+  */
   stage('EmailNotification')
   {
   mail bcc: 'polepallip@gmail.com', body: '''Build is Over..
@@ -44,5 +45,6 @@ node
   Mithun Technologies,
   9980923226''', cc: 'areddy121314@gmail.com', from: '', replyTo: '', subject: 'Build is over..', to: 'devopstrainingblr@gmail.com,anuroop.rv@gmail.com'
   }
+ 
 
 }
